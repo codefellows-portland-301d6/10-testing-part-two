@@ -25,12 +25,14 @@ function expect(expression, failureMessage, successMessage) {
     to see what happens when it fails, and change `ricksFaveAnimal`
     to get it to pass!
 */
-var ricksFaveAnimal = 'hyena';
+/*
+var ricksFaveAnimal = 'penguin';
 
 expect(
   ricksFaveAnimal === 'penguin',
   'ricksFavoriteAnimal should equal penguin, but currently equals ' + ricksFaveAnimal,
   'ricksFavoriteAnimal equals penguin!');
+*/
 
   // BEGIN WORK BELOW - test code by running `node bonus-testing-part-two.js`
   //  in your terminal!
@@ -50,7 +52,7 @@ expect(
   // number of times the new caretaker fed the lion. one array entry per day
 var mealsPerDay = [5, 4, 3, 6, 2, 4, 3, 4, 5, 1];
 var tooHungryDay;
-
+var tooHungryFound = false;
   /*
    TODO:
    Cycle through the days in mealsPerDay. At each day, print out the average
@@ -59,6 +61,17 @@ var tooHungryDay;
    pondering protein supplements (the first day the average dips below 4
    meals)
   */
+
+// this makes more sense as a for loop because you can exit early, but
+// I wanted to try doing it with a reduce for practice.
+
+var runningAverage = mealsPerDay.reduce(function(acc, cur, i , array) {
+  if (acc / i < 4.0 & !tooHungryFound) {
+    tooHungryDay = i;
+    tooHungryFound = true;
+  }
+  return acc += cur;
+});
 
 
 expect(
@@ -70,3 +83,9 @@ expect(
   // Write a second test expecting that tooHungryDay falls within an acceptable answer
   // based on the number of days available in the array. Remember to:
   // pass in your expression, and write a failure and a success message.
+
+expect(
+  tooHungryDay > 0 && tooHungryDay < mealsPerDay.length,
+  'tooHungryDay should be a day the lion was actually fed, between 0 and ' + (mealsPerDay.length - 1),
+  'tooHungryDay falls within the range of days the caretaker was feeding the lion.'
+)
