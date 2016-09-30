@@ -25,7 +25,7 @@ function expect(expression, failureMessage, successMessage) {
     to see what happens when it fails, and change `ricksFaveAnimal`
     to get it to pass!
 */
-var ricksFaveAnimal = 'hyena';
+var ricksFaveAnimal = 'penguin';
 
 expect(
   ricksFaveAnimal === 'penguin',
@@ -60,6 +60,20 @@ var tooHungryDay;
    meals)
   */
 
+function runningMealsAverage (mealSchedule) {
+  var averageMeals;
+  var totalMeals = 0;
+  for (var i = 0; i < mealSchedule.length; i++) {
+    totalMeals += mealSchedule[i];
+    averageMeals = totalMeals / (i + 1);
+    console.log(averageMeals);
+    if (averageMeals < 4) {
+      return i + 1;
+    }
+  };
+};
+
+tooHungryDay = runningMealsAverage(mealsPerDay);
 
 expect(
   typeof(tooHungryDay) === 'number',
@@ -70,3 +84,9 @@ expect(
   // Write a second test expecting that tooHungryDay falls within an acceptable answer
   // based on the number of days available in the array. Remember to:
   // pass in your expression, and write a failure and a success message.
+
+expect(
+  (0 < tooHungryDay && tooHungryDay < mealsPerDay.length),
+  'tooHungryDay is ' + tooHungryDay + ' days, but should be a number that is greater than 0 but less than ' + mealsPerDay.length,
+  'tooHungryDay is ' + tooHungryDay + ' days, and falls between 0 and ' + mealsPerDay.length + ' days. The later of which is the total number of feedings on the schedule.'
+);
