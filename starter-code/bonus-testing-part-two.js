@@ -25,7 +25,7 @@ function expect(expression, failureMessage, successMessage) {
     to see what happens when it fails, and change `ricksFaveAnimal`
     to get it to pass!
 */
-var ricksFaveAnimal = 'hyena';
+var ricksFaveAnimal = 'penguin';
 
 expect(
   ricksFaveAnimal === 'penguin',
@@ -59,7 +59,16 @@ var tooHungryDay;
    pondering protein supplements (the first day the average dips below 4
    meals)
   */
+tooHungryDay = mealsPerDay.reduce(function(acc, curr, index) {
+  acc['sum'] = acc['sum'] + curr;
+  acc['avg'] = acc['sum'] / (index + 1);
+  console.log('index: ' + index + ', acc: ' + acc + ', curr: ' + curr);
+  console.log('On day ' + (index + 1) + ' average meals per day is ' + acc['avg']);
+  if (acc['avg'] < 4.0) { acc['dangerDay'] = index + 1; }
+  return acc;
+}, { dangerDay: undefined, sum: 0, avg: 0 });
 
+console.log('Danger day: ' + tooHungryDay['dangerDay']);
 
 expect(
   typeof(tooHungryDay) === 'number',
