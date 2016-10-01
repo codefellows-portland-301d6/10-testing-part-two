@@ -60,15 +60,16 @@ var tooHungryDay;
    meals)
   */
 tooHungryDay = mealsPerDay.reduce(function(acc, curr, index) {
+  if (acc['dangerDay']) { return acc['dangerDay']; }
   acc['sum'] = acc['sum'] + curr;
   acc['avg'] = acc['sum'] / (index + 1);
   console.log('index: ' + index + ', acc: ' + acc + ', curr: ' + curr);
   console.log('On day ' + (index + 1) + ' average meals per day is ' + acc['avg']);
-  if (acc['avg'] < 4.0) { acc['dangerDay'] = index + 1; }
+  if (!acc['dangerDay'] && acc['avg'] < 4.0) { acc['dangerDay'] = index + 1; }
   return acc;
 }, { dangerDay: undefined, sum: 0, avg: 0 });
 
-console.log('Danger day: ' + tooHungryDay['dangerDay']);
+console.log('Too hungry day: ' + tooHungryDay);
 
 expect(
   typeof(tooHungryDay) === 'number',
