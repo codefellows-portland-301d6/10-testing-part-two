@@ -25,7 +25,7 @@ function expect(expression, failureMessage, successMessage) {
     to see what happens when it fails, and change `ricksFaveAnimal`
     to get it to pass!
 */
-var ricksFaveAnimal = 'hyena';
+var ricksFaveAnimal = 'penguin';
 
 expect(
   ricksFaveAnimal === 'penguin',
@@ -59,7 +59,21 @@ var tooHungryDay;
    pondering protein supplements (the first day the average dips below 4
    meals)
   */
+tooHungryDay = mealsPerDay.reduce(function(acc, curr, index, arr) {
+  acc['sum'] = acc['sum'] + curr;
+  acc['avg'] = acc['sum'] / (index + 1);
+  console.log('index: ' + index + ', acc: ' + acc + ', curr: ' + curr);
+  console.log('On day ' + (index + 1) + ' average meals per day is ' + acc['avg']);
+  if (!acc['dangerDay'] && acc['avg'] < 4.0) { acc['dangerDay'] = index + 1; }
+  if (index < arr.length-1) {
+    return acc;
+  }
+  else {
+    return acc['dangerDay'];
+  }
+}, { dangerDay: undefined, sum: 0, avg: 0 });
 
+console.log('Too hungry day: ' + tooHungryDay);
 
 expect(
   typeof(tooHungryDay) === 'number',
@@ -70,3 +84,8 @@ expect(
   // Write a second test expecting that tooHungryDay falls within an acceptable answer
   // based on the number of days available in the array. Remember to:
   // pass in your expression, and write a failure and a success message.
+expect(
+  tooHungryDay >= 1 && tooHungryDay <= mealsPerDay.length,
+  'tooHungryDay was ' + tooHungryDay + ' and should have been between 1 and ' + mealsPerDay.length,
+  'tooHungryDay was ' + tooHungryDay + ' which is in the acceptable range 1 to ' + mealsPerDay.length
+);
